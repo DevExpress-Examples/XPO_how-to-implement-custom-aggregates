@@ -20,26 +20,21 @@ namespace XpoCustomAggregate {
             return typeof(decimal?);
         }
         object ICustomAggregate.CreateEvaluationContext() {
-            return new CustomAggregateEvaluationContext<Context>();
+            return new Context();
         }
         bool ICustomAggregate.Process(object context, object[] operands) {
-            var ctx = (CustomAggregateEvaluationContext<Context>)context;
-            ctx.ProcessValue(v => {
-                if(operands[0] != null) {
-                    v = new Context() {
-                        Count = v.Count + 1,
-                        Sum = v.Sum + Convert.ToDouble(operands[0]),
-                        SumOfSquares = Math.Pow(Convert.ToDouble(operands[0]), 2)
-                    };
-                }
-                return v;
-            });
+            var ctx = (Context)context;
+            if(operands[0] != null) {
+                ctx.Count++;
+                ctx.Sum += Convert.ToDouble(operands[0]);
+                ctx.SumOfSquares += Math.Pow(Convert.ToDouble(operands[0]), 2);
+            }
             return false;
         }
         object ICustomAggregate.GetResult(object context) {
-            var ctx = (CustomAggregateEvaluationContext<Context>)context;
-            if(ctx.Value.Count > 0) {
-                return Convert.ToDecimal(Math.Sqrt(ctx.Value.SumOfSquares / ctx.Value.Count - Math.Pow(ctx.Value.Sum / ctx.Value.Count, 2)));
+            var ctx = (Context)context;
+            if(ctx.Count > 0) {
+                return Convert.ToDecimal(Math.Sqrt(ctx.SumOfSquares / ctx.Count - Math.Pow(ctx.Sum / ctx.Count, 2)));
             }
             return null;
         }
@@ -55,7 +50,7 @@ namespace XpoCustomAggregate {
         public static object STDEVP<T>(IEnumerable<T> collection, Expression<Func<T, object>> arg) {
             throw new InvalidOperationException("This method should not be called explicitly.");
         }
-        struct Context {
+        class Context {
             public int Count;
             public double Sum;
             public double SumOfSquares;

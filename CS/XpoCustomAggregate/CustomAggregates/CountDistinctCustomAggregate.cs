@@ -19,16 +19,16 @@ namespace XpoCustomAggregate {
             return typeof(int);
         }
         object ICustomAggregate.CreateEvaluationContext() {
-            return new CustomAggregateEvaluationContext<HashSet<object>>();
+            return new HashSet<object>();
         }
         bool ICustomAggregate.Process(object context, object[] operands) {
-            var ctx = (CustomAggregateEvaluationContext<HashSet<object>>)context;
-            ctx.ProcessValue(v => { v.Add(operands[0]); return v; });
+            var ctx = (HashSet<object>)context;
+            ctx.Add(operands[0]);
             return false;
         }
         object ICustomAggregate.GetResult(object context) {
-            var ctx = (CustomAggregateEvaluationContext<HashSet<object>>)context;
-            return ctx.Value;
+            var ctx = (HashSet<object>)context;
+            return ctx.Count;
         }
         string ICustomAggregateFormattable.Format(Type providerType, params string[] operands) {
             return string.Format("COUNT(distinct {0})", operands[0]);

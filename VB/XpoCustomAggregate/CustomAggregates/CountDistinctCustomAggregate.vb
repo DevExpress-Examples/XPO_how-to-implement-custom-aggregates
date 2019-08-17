@@ -25,19 +25,16 @@ Namespace XpoCustomAggregate
 			Return GetType(Integer)
 		End Function
 		Private Function ICustomAggregate_CreateEvaluationContext() As Object Implements ICustomAggregate.CreateEvaluationContext
-			Return New CustomAggregateEvaluationContext(Of HashSet(Of Object))()
+			Return New HashSet(Of Object)()
 		End Function
 		Private Function ICustomAggregate_Process(ByVal context As Object, ByVal operands() As Object) As Boolean Implements ICustomAggregate.Process
-			Dim ctx = DirectCast(context, CustomAggregateEvaluationContext(Of HashSet(Of Object)))
-			ctx.ProcessValue(Function(v)
-				v.Add(operands(0))
-				Return v
-			End Function)
+			Dim ctx = DirectCast(context, HashSet(Of Object))
+			ctx.Add(operands(0))
 			Return False
 		End Function
 		Private Function ICustomAggregate_GetResult(ByVal context As Object) As Object Implements ICustomAggregate.GetResult
-			Dim ctx = DirectCast(context, CustomAggregateEvaluationContext(Of HashSet(Of Object)))
-			Return ctx.Value
+			Dim ctx = DirectCast(context, HashSet(Of Object))
+			Return ctx.Count
 		End Function
 		Private Function ICustomAggregateFormattable_Format(ByVal providerType As Type, ParamArray ByVal operands() As String) As String Implements ICustomAggregateFormattable.Format
 			Return String.Format("COUNT(distinct {0})", operands(0))
