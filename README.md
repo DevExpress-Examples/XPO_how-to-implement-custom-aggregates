@@ -13,13 +13,13 @@ In addition to predefined [aggregates](https://docs.devexpress.com/CoreLibraries
 This example illustrates how to use the CountDistinct and STDEVP custom aggregates with XPView and XPQuery (research the Form1 code behind and designer files).
 ``` csharp
 // Criteria string for a custom aggregate with a detail collection property or Free Joins.
-YourCollection.YourCustomAggregate(YourNestedProperty)
+"YourCollection.YourCustomAggregate(YourNestedProperty)"
 
 // Specific criteria string examples for the Orders collection and the CountDistinct and STDEVP custom aggregates.
-[Orders][].CountDistinct([ProductName]) and [Orders][].STDEVP([Price])
+"[Orders][].CountDistinct([ProductName]) and [Orders][].STDEVP([Price])"
 
 // Criteria string for a custom aggregate with a top-level collection of persistent objects.
-[].CUSTOM_AGGREGATE('YourCustomAggregate', YourNestedProperty)
+"[].CUSTOM_AGGREGATE('YourCustomAggregate', YourNestedProperty)"
 
 // LINQ to XPO usage of custom aggregates (CountDistinct and STDEVP) with a detail collection property.
 new XPQuery<Customer>(theSession)
