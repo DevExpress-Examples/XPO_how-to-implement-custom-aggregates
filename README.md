@@ -16,7 +16,7 @@ This example illustrates how to use the CountDistinct and STDEVP custom aggregat
 "YourCollection.YourCustomAggregate(YourNestedProperty)"
 
 // Specific criteria string examples for the Orders collection and the CountDistinct and STDEVP custom aggregates.
-"[Orders][].CountDistinct([ProductName]) and [Orders][].STDEVP([Price])"
+"[Orders][].CountDistinct([ProductName])", "[Orders][].STDEVP([Price])"
 
 // Criteria string for a custom aggregate with a top-level collection of persistent objects.
 "[].CUSTOM_AGGREGATE('YourCustomAggregate', YourNestedProperty)"
