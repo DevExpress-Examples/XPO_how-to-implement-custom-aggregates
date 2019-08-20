@@ -1,3 +1,11 @@
+<!-- default file list -->
+*Files to look at*:
+* [Form1.cs](./CS/XpoCustomAggregate/Form1.cs) (VB: [Form1.vb](./VB/XpoCustomAggregate/Form1.vb))
+* [Form1.Designer.cs](./CS/XpoCustomAggregate/Form1.Designer.cs) (VB: [Form1.Designer.vb](./VB/XpoCustomAggregate/Form1.Designer.vb))
+* [CustomAggregates](./CS/XpoCustomAggregate/CustomAggregates) (VB: [CustomAggregates](./VB/XpoCustomAggregate/CustomAggregates))
+* [DataAccess](./CS/XpoCustomAggregate/DataAccess) (VB: [DataAccess](./VB/XpoCustomAggregate/DataAccess))
+<!-- default file list end -->
+
 # XPO - How To Implement Custom Aggregates for Collections of Persistent Objects
 
 In addition to predefined [aggregates](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Filtering.Aggregate) (Sum, Count, Min, Max, Avg, Single, Exists), XPO users can now implement custom aggregates. At this stage, you can use them to query data with XPO using XPQuery and with data sources that support CriteriaOperator (server mode collections are not yet supported).
