@@ -5,7 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 
 namespace XpoCustomAggregate {
-    public partial class Form1 : Form {
+    public partial class Form1 : DevExpress.XtraEditors.XtraForm
+    {
         public Form1() {
             InitializeComponent();
 
@@ -14,7 +15,7 @@ namespace XpoCustomAggregate {
             CountDistinctCustomAggregate.Register();
             
             //Load data using XPQuery
-            dataGridView2.DataSource = new XPQuery<Customer>(session1)
+            gridControl2.DataSource = new XPQuery<Customer>(session1)
                 .Select(t => new {
                     ContactName = t.ContactName,
                     CountDistinct = CountDistinctCustomAggregate.CountDistinct(t.Orders, o => o.ProductName),

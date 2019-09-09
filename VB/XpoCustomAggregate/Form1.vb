@@ -6,7 +6,7 @@ Imports System.Windows.Forms
 
 Namespace XpoCustomAggregate
 	Partial Public Class Form1
-		Inherits Form
+		Inherits DevExpress.XtraEditors.XtraForm
 
 		Public Sub New()
 			InitializeComponent()
@@ -16,7 +16,7 @@ Namespace XpoCustomAggregate
 			CountDistinctCustomAggregate.Register()
 
 			'Load data using XPQuery
-			dataGridView2.DataSource = (New XPQuery(Of Customer)(session1)).Select(Function(t) New With {
+			gridControl2.DataSource = (New XPQuery(Of Customer)(session1)).Select(Function(t) New With {
 				Key .ContactName = t.ContactName,
 				Key .CountDistinct = CountDistinctCustomAggregate.CountDistinct(t.Orders, Function(o) o.ProductName),
 				Key .QuantityVariance = STDEVPCustomAggregate.STDEVP(t.Orders, Function(o) o.Quantity),
