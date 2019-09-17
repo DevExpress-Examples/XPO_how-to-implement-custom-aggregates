@@ -1,13 +1,15 @@
 ﻿Imports DevExpress.Data.Filtering
+Imports DevExpress.Data.Linq
 Imports DevExpress.Xpo
 Imports System
 Imports System.Collections.Generic
+Imports System.Linq
 Imports System.Linq.Expressions
 Imports System.Reflection
 
 Namespace XpoCustomAggregate
 	Friend Class CountDistinctCustomAggregate
-		Implements ICustomAggregate, ICustomAggregateQueryable, ICustomAggregateFormattable
+		Implements ICustomAggregate, ICustomAggregateQueryable, ICustomAggregateFormattable, ICustomAggregateConvertibleToExpression
 
 		Private Shared ReadOnly instance As New CountDistinctCustomAggregate()
 		Public Shared Sub Register()
@@ -44,6 +46,19 @@ Namespace XpoCustomAggregate
 		End Function
 		Public Shared Function CountDistinct(Of T)(ByVal collection As IEnumerable(Of T), ByVal arg As Expression(Of Func(Of T, Object))) As Object
 			Throw New InvalidOperationException("This method should not be called explicitly.")
+		End Function
+
+		Private Function ICustomAggregateConvertibleToExpression_Convert(ByVal converter As ICriteriaToExpressionConverter, ByVal collectionProperty As Expression, ByVal elementParameter As ParameterExpression, ParamArray ByVal operands() As Expression) As Expression Implements ICustomAggregateConvertibleToExpression.Convert
+			Dim callFrom As Type
+			If GetType(ParallelQuery).IsAssignableFrom(collectionProperty.Type) Then
+				callFrom = GetType(ParallelEnumerable)
+			Else
+				callFrom = GetType(Enumerable)
+			End If
+			Dim lambda = Expression.Lambda(operands(0), elementParameter)
+			Dim selectCall = Expression.Call(callFrom, "Select", New Type() { elementParameter.Type, operands(0).Type }, collectionProperty, lambda)
+			Dim distinctCall = Expression.Call(callFrom, "Distinct", New Type() { operands(0).Type }, selectCall)
+			Return Expression.Call(callFrom, "Count", New Type() { operands(0).Type }, distinctCall)
 		End Function
 	End Class
 End Namespace

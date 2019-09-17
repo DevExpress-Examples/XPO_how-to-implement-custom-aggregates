@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.Filtering;
+using DevExpress.Data.Linq;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace XpoCustomAggregate {
-    class STDEVPCustomAggregate : ICustomAggregate, ICustomAggregateQueryable, ICustomAggregateFormattable {
+    class STDEVPCustomAggregate : ICustomAggregate, ICustomAggregateQueryable, ICustomAggregateFormattable, ICustomAggregateConvertibleToExpression {
         static readonly STDEVPCustomAggregate instance = new STDEVPCustomAggregate();
         public static void Register() {
             CriteriaOperator.RegisterCustomAggregate(instance);
@@ -50,6 +51,26 @@ namespace XpoCustomAggregate {
         public static object STDEVP<T>(IEnumerable<T> collection, Expression<Func<T, object>> arg) {
             throw new InvalidOperationException("This method should not be called explicitly.");
         }
+
+        Expression ICustomAggregateConvertibleToExpression.Convert(ICriteriaToExpressionConverter converter, Expression collectionProperty, ParameterExpression elementParameter, params Expression[] operands) {
+            Type callFrom;
+            if(typeof(ParallelQuery).IsAssignableFrom(collectionProperty.Type)) {
+                callFrom = typeof(ParallelEnumerable);
+            } else {
+                callFrom = typeof(Enumerable);
+            }
+            Expression operand = Expression.Convert(operands[0], typeof(double));
+            Expression operandPower2 = Expression.Call(typeof(Math), "Pow", new Type[] { }, operand, Expression.Constant(2.0));
+            Expression sumOfSquares = Expression.Call(callFrom, "Sum", new Type[] { elementParameter.Type }, collectionProperty, Expression.Lambda(operandPower2, elementParameter));
+            Expression sum = Expression.Call(callFrom, "Sum", new Type[] { elementParameter.Type }, collectionProperty, Expression.Lambda(operand, elementParameter));
+            Expression count = Expression.Call(callFrom, "Count", new Type[] { elementParameter.Type }, collectionProperty);
+            count = Expression.Convert(count, typeof(double));
+            Expression sumOfSquaresDivide2 = Expression.Divide(sumOfSquares, count);
+            Expression sumDivideCountPower2 = Expression.Call(typeof(Math), "Pow", new Type[] { }, Expression.Divide(sum, count), Expression.Constant(2.0));
+            Expression subtract = Expression.Subtract(sumOfSquaresDivide2, sumDivideCountPower2);
+            return Expression.Call(typeof(Math), "Sqrt", new Type[] { }, subtract);
+        }
+
         class Context {
             public int Count;
             public double Sum;
