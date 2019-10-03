@@ -18,7 +18,7 @@ namespace XpoCustomAggregate {
         }
         public string Name { get { return nameof(STDEVP); } }
         Type ICustomAggregate.ResultType(params Type[] operands) {
-            return typeof(decimal?);
+            return typeof(double?);
         }
         object ICustomAggregate.CreateEvaluationContext() {
             return new Context();
@@ -35,7 +35,7 @@ namespace XpoCustomAggregate {
         object ICustomAggregate.GetResult(object context) {
             var ctx = (Context)context;
             if(ctx.Count > 0) {
-                return Convert.ToDecimal(Math.Sqrt(ctx.SumOfSquares / ctx.Count - Math.Pow(ctx.Sum / ctx.Count, 2)));
+                return Math.Sqrt(ctx.SumOfSquares / ctx.Count - Math.Pow(ctx.Sum / ctx.Count, 2));
             }
             return null;
         }

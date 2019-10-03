@@ -24,7 +24,7 @@ Namespace XpoCustomAggregate
             End Get
 		End Property
 		Private Function ICustomAggregate_ResultType(ParamArray ByVal operands() As Type) As Type Implements ICustomAggregate.ResultType
-			Return GetType(Decimal?)
+			Return GetType(Double?)
 		End Function
 		Private Function ICustomAggregate_CreateEvaluationContext() As Object Implements ICustomAggregate.CreateEvaluationContext
 			Return New Context()
@@ -41,7 +41,7 @@ Namespace XpoCustomAggregate
 		Private Function ICustomAggregate_GetResult(ByVal context As Object) As Object Implements ICustomAggregate.GetResult
 			Dim ctx = DirectCast(context, Context)
 			If ctx.Count > 0 Then
-				Return Convert.ToDecimal(Math.Sqrt(ctx.SumOfSquares / ctx.Count - Math.Pow(ctx.Sum / ctx.Count, 2)))
+				Return Math.Sqrt(ctx.SumOfSquares / ctx.Count - Math.Pow(ctx.Sum / ctx.Count, 2))
 			End If
 			Return Nothing
 		End Function

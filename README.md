@@ -25,13 +25,13 @@ This example illustrates how to use the CountDistinct and STDEVP custom aggregat
 new XPQuery<Customer>(theSession)
     .Select(t => new {
         ContactName = t.ContactName,
-        CountDistinct = CountDistinctCustomAggregate.CountDistinct(
+        DistinctProducts = (int)CountDistinctCustomAggregate.CountDistinct(
             t.Orders, o => o.ProductName
         ),
-        QuantityVariance = STDEVPCustomAggregate.STDEVP(
+        QuantityVariance = (double?)STDEVPCustomAggregate.STDEVP(
             t.Orders, o => o.Quantity
         ),
-        PriceVariance = STDEVPCustomAggregate.STDEVP(
+        PriceVariance = (double?)STDEVPCustomAggregate.STDEVP(
             t.Orders, o => o.Price
         ),
      }).OrderBy(t => t.ContactName).ToList();

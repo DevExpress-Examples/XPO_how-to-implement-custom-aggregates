@@ -27,7 +27,6 @@
             this.session1 = new DevExpress.Xpo.Session(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.xpView1 = new DevExpress.Xpo.XPView(this.components);
             this.contactNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.countdistinctOrderProductNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sTDEVPOrderQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,7 +43,6 @@
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.session1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xpView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
@@ -68,18 +66,6 @@
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Load data with XPQuery:";
-            // 
-            // xpView1
-            // 
-            this.xpView1.ObjectType = typeof(XpoCustomAggregate.Customer);
-            this.xpView1.Properties.AddRange(new DevExpress.Xpo.ViewProperty[] {
-            new DevExpress.Xpo.ViewProperty("Contact Name", DevExpress.Xpo.SortDirection.None, "[FirstName] + \' \' + [LastName]", false, true),
-            new DevExpress.Xpo.ViewProperty("Count (distinct Order.ProductName)", DevExpress.Xpo.SortDirection.None, "[Orders][].CountDistinct([ProductName])", false, true),
-            new DevExpress.Xpo.ViewProperty("STDEVP(Order.Quantity)", DevExpress.Xpo.SortDirection.None, "[Orders][].STDEVP([Quantity])", false, true),
-            new DevExpress.Xpo.ViewProperty("STDEVP(Order.Price)", DevExpress.Xpo.SortDirection.None, "[Orders][].STDEVP([Price])", false, true)});
-            this.xpView1.Session = this.session1;
-            this.xpView1.Sorting.AddRange(new DevExpress.Xpo.SortProperty[] {
-            new DevExpress.Xpo.SortProperty("[Contact Name]", DevExpress.Xpo.DB.SortingDirection.Ascending)});
             // 
             // contactNameDataGridViewTextBoxColumn
             // 
@@ -109,7 +95,6 @@
             // 
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridControl1.DataSource = this.xpView1;
             this.gridControl1.Location = new System.Drawing.Point(12, 25);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -130,7 +115,7 @@
             // 
             // colContactName
             // 
-            this.colContactName.FieldName = "Contact Name";
+            this.colContactName.FieldName = "ContactName";
             this.colContactName.Name = "colContactName";
             this.colContactName.Visible = true;
             this.colContactName.VisibleIndex = 0;
@@ -138,21 +123,23 @@
             // gridColumn1
             // 
             this.gridColumn1.Caption = "COUNT (DISTINCT Order.ProductName)";
-            this.gridColumn1.FieldName = "Count (distinct Order.ProductName)";
+            this.gridColumn1.FieldName = "DistinctProducts";
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 1;
             // 
             // gridColumn2
             // 
-            this.gridColumn2.FieldName = "STDEVP(Order.Quantity)";
+            this.gridColumn2.Caption = "STDEVP(Order.Quantity)";
+            this.gridColumn2.FieldName = "QuantityVariance";
             this.gridColumn2.Name = "gridColumn2";
             this.gridColumn2.Visible = true;
             this.gridColumn2.VisibleIndex = 2;
             // 
             // gridColumn3
             // 
-            this.gridColumn3.FieldName = "STDEVP(Order.Price)";
+            this.gridColumn3.Caption = "STDEVP(Order.Price)";
+            this.gridColumn3.FieldName = "PriceVariance";
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
             this.gridColumn3.VisibleIndex = 3;
@@ -191,8 +178,9 @@
             // gridColumn5
             // 
             this.gridColumn5.Caption = "COUNT (DISTINCT Order.ProductName)";
-            this.gridColumn5.FieldName = "CountDistinct";
+            this.gridColumn5.FieldName = "DistinctProducts";
             this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 1;
             // 
@@ -224,7 +212,6 @@
             this.Name = "Form1";
             this.Text = "XPO Custom Aggregate Functions Demo";
             ((System.ComponentModel.ISupportInitialize)(this.session1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xpView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
@@ -235,7 +222,6 @@
         }
 
         #endregion
-        private DevExpress.Xpo.XPView xpView1;
         private DevExpress.Xpo.Session session1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

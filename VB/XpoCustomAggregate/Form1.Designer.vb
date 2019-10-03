@@ -27,7 +27,6 @@
 			Me.session1 = New DevExpress.Xpo.Session(Me.components)
 			Me.label1 = New System.Windows.Forms.Label()
 			Me.label2 = New System.Windows.Forms.Label()
-			Me.xpView1 = New DevExpress.Xpo.XPView(Me.components)
 			Me.contactNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 			Me.countdistinctOrderProductNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 			Me.sTDEVPOrderQuantityDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -44,7 +43,6 @@
 			Me.gridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
 			Me.gridColumn7 = New DevExpress.XtraGrid.Columns.GridColumn()
 			CType(Me.session1, System.ComponentModel.ISupportInitialize).BeginInit()
-			CType(Me.xpView1, System.ComponentModel.ISupportInitialize).BeginInit()
 			CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
 			CType(Me.gridView1, System.ComponentModel.ISupportInitialize).BeginInit()
 			CType(Me.gridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,18 +66,6 @@
 			Me.label2.Size = New System.Drawing.Size(127, 13)
 			Me.label2.TabIndex = 1
 			Me.label2.Text = "Load data with XPQuery:"
-			' 
-			' xpView1
-			' 
-			Me.xpView1.ObjectType = GetType(XpoCustomAggregate.Customer)
-			Me.xpView1.Properties.AddRange(New DevExpress.Xpo.ViewProperty() {
-				New DevExpress.Xpo.ViewProperty("Contact Name", DevExpress.Xpo.SortDirection.None, "[FirstName] + ' ' + [LastName]", False, True),
-				New DevExpress.Xpo.ViewProperty("Count (distinct Order.ProductName)", DevExpress.Xpo.SortDirection.None, "[Orders][].CountDistinct([ProductName])", False, True),
-				New DevExpress.Xpo.ViewProperty("STDEVP(Order.Quantity)", DevExpress.Xpo.SortDirection.None, "[Orders][].STDEVP([Quantity])", False, True),
-				New DevExpress.Xpo.ViewProperty("STDEVP(Order.Price)", DevExpress.Xpo.SortDirection.None, "[Orders][].STDEVP([Price])", False, True)
-			})
-			Me.xpView1.Session = Me.session1
-			Me.xpView1.Sorting.AddRange(New DevExpress.Xpo.SortProperty() { New DevExpress.Xpo.SortProperty("[Contact Name]", DevExpress.Xpo.DB.SortingDirection.Ascending)})
 			' 
 			' contactNameDataGridViewTextBoxColumn
 			' 
@@ -108,7 +94,6 @@
 			' gridControl1
 			' 
 			Me.gridControl1.Anchor = (CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles))
-			Me.gridControl1.DataSource = Me.xpView1
 			Me.gridControl1.Location = New System.Drawing.Point(12, 25)
 			Me.gridControl1.MainView = Me.gridView1
 			Me.gridControl1.Name = "gridControl1"
@@ -124,7 +109,7 @@
 			' 
 			' colContactName
 			' 
-			Me.colContactName.FieldName = "Contact Name"
+			Me.colContactName.FieldName = "ContactName"
 			Me.colContactName.Name = "colContactName"
 			Me.colContactName.Visible = True
 			Me.colContactName.VisibleIndex = 0
@@ -132,21 +117,23 @@
 			' gridColumn1
 			' 
 			Me.gridColumn1.Caption = "COUNT (DISTINCT Order.ProductName)"
-			Me.gridColumn1.FieldName = "Count (distinct Order.ProductName)"
+			Me.gridColumn1.FieldName = "DistinctProducts"
 			Me.gridColumn1.Name = "gridColumn1"
 			Me.gridColumn1.Visible = True
 			Me.gridColumn1.VisibleIndex = 1
 			' 
 			' gridColumn2
 			' 
-			Me.gridColumn2.FieldName = "STDEVP(Order.Quantity)"
+			Me.gridColumn2.Caption = "STDEVP(Order.Quantity)"
+			Me.gridColumn2.FieldName = "QuantityVariance"
 			Me.gridColumn2.Name = "gridColumn2"
 			Me.gridColumn2.Visible = True
 			Me.gridColumn2.VisibleIndex = 2
 			' 
 			' gridColumn3
 			' 
-			Me.gridColumn3.FieldName = "STDEVP(Order.Price)"
+			Me.gridColumn3.Caption = "STDEVP(Order.Price)"
+			Me.gridColumn3.FieldName = "PriceVariance"
 			Me.gridColumn3.Name = "gridColumn3"
 			Me.gridColumn3.Visible = True
 			Me.gridColumn3.VisibleIndex = 3
@@ -178,8 +165,9 @@
 			' gridColumn5
 			' 
 			Me.gridColumn5.Caption = "COUNT (DISTINCT Order.ProductName)"
-			Me.gridColumn5.FieldName = "CountDistinct"
+			Me.gridColumn5.FieldName = "DistinctProducts"
 			Me.gridColumn5.Name = "gridColumn5"
+			Me.gridColumn5.UnboundType = DevExpress.Data.UnboundColumnType.Integer
 			Me.gridColumn5.Visible = True
 			Me.gridColumn5.VisibleIndex = 1
 			' 
@@ -211,7 +199,6 @@
 			Me.Name = "Form1"
 			Me.Text = "XPO Custom Aggregate Functions Demo"
 			CType(Me.session1, System.ComponentModel.ISupportInitialize).EndInit()
-			CType(Me.xpView1, System.ComponentModel.ISupportInitialize).EndInit()
 			CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).EndInit()
 			CType(Me.gridView1, System.ComponentModel.ISupportInitialize).EndInit()
 			CType(Me.gridControl2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -222,7 +209,6 @@
 		End Sub
 
 		#End Region
-		Private xpView1 As DevExpress.Xpo.XPView
 		Private session1 As DevExpress.Xpo.Session
 		Private label1 As System.Windows.Forms.Label
 		Private label2 As System.Windows.Forms.Label
