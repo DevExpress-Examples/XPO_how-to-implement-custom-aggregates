@@ -8,7 +8,7 @@
 
 # XPO - How To Implement Custom Aggregates for Collections of Persistent Objects
 
-In addition to predefined [aggregates](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Filtering.Aggregate) (Sum, Count, Min, Max, Avg, Single, Exists), XPO users can now implement custom aggregates. At this stage, you can use them to query data with XPO using XPQuery and with data sources that support CriteriaOperator (server mode collections are not yet supported).
+In addition to predefined [aggregates](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.Filtering.Aggregate) (Sum, Count, Min, Max, Avg, Single, Exists), XPO users can implement [custom aggregate functions](https://docs.devexpress.com/XPO/401333/concepts/custom-aggregate-functions). You can use them to query data with XPQuery and data sources that support CriteriaOperator (including server mode collections).
 
 This example illustrates how to use the CountDistinct and STDEVP custom aggregates with XPView and XPQuery (research the Form1 code behind and designer files).
 ``` csharp
@@ -40,3 +40,6 @@ new XPQuery<Customer>(theSession)
 To create a custom aggregate, implement the following interfaces: `ICustomAggregate`, `ICustomAggregateQueryable`, `ICustomAggregateFormattable`.
 For more information, research the `CountDistinctCustomAggregate` and `STDEVPCustomAggregate` classes in the *XpoCustomAggregate/CustomAggregates* folder.
 To register a custom aggregate, use the `CriteriaOperator.RegisterCustomAggregate` method (see the Form1 constructor).
+
+**See Also**
+[How to: Implement and Use Custom Aggregate Functions](https://docs.devexpress.com/XPO/401341/examples/how-to-implement-and-use-custom-aggregate-functions)
