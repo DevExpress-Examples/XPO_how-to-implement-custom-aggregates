@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\XpoCustomAggregate\CustomAggregates\CountDistinctCustomAggregate.cs" Link="CustomAggregates\CountDistinctCustomAggregate.cs" />
+    <Compile Include="..\XpoCustomAggregate\CustomAggregates\STDEVPCustomAggregate.cs" Link="CustomAggregates\STDEVPCustomAggregate.cs" />
+    <Compile Include="..\XpoCustomAggregate\DataAccess\ConnectionHelper.cs" Link="DataAccess\ConnectionHelper.cs" />
+    <Compile Include="..\XpoCustomAggregate\DataAccess\Customer.cs" Link="DataAccess\Customer.cs" />
+    <Compile Include="..\XpoCustomAggregate\DataAccess\DemoDataHelper.cs" Link="DataAccess\DemoDataHelper.cs" />
+    <Compile Include="..\XpoCustomAggregate\DataAccess\Order.cs" Link="DataAccess\Order.cs" />
+    <Compile Include="..\XpoCustomAggregate\Form1.cs" Link="Form1.cs" />
+    <Compile Include="..\XpoCustomAggregate\Form1.Designer.cs" Link="Form1.Designer.cs" />
+    <Compile Include="..\XpoCustomAggregate\Program.cs" Link="Program.cs" />
+    <Compile Include="..\XpoCustomAggregate\Properties\Resources.Designer.cs" Link="Resources.Designer.cs" />
+    <Compile Include="..\XpoCustomAggregate\Properties\Settings.Designer.cs" Link="Settings.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\XpoCustomAggregate\Form1.resx" Link="Form1.resx" />
+    <EmbeddedResource Include="..\XpoCustomAggregate\Properties\Resources.resx" Link="Resources.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.WindowsDesktop.Win" Version="20.1.3-ctp" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="CustomAggregates\" />
+    <Folder Include="DataAccess\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\XpoCustomAggregate\App.config" Link="App.config" />
+    <None Include="..\XpoCustomAggregate\Properties\Settings.settings" Link="Settings.settings" />
+  </ItemGroup>
+
+</Project>
