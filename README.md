@@ -1,7 +1,6 @@
 <!-- default file list -->
 *Files to look at*:
 * [Form1.cs](./CS/XpoCustomAggregate/Form1.cs) (VB: [Form1.vb](./VB/XpoCustomAggregate/Form1.vb))
-* [Form1.Designer.cs](./CS/XpoCustomAggregate/Form1.Designer.cs) (VB: [Form1.Designer.vb](./VB/XpoCustomAggregate/Form1.Designer.vb))
 * [CustomAggregates](./CS/XpoCustomAggregate/CustomAggregates) (VB: [CustomAggregates](./VB/XpoCustomAggregate/CustomAggregates))
 * [DataAccess](./CS/XpoCustomAggregate/DataAccess) (VB: [DataAccess](./VB/XpoCustomAggregate/DataAccess))
 <!-- default file list end -->
