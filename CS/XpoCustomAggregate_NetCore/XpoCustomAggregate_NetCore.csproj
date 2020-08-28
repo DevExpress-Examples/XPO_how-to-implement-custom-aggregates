@@ -22,7 +22,7 @@
     <EmbeddedResource Include="..\XpoCustomAggregate\Properties\Resources.resx" Link="Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.WindowsDesktop.Win" Version="20.1.3-ctp" />
+    <PackageReference Include="DevExpress.WindowsDesktop.Win" Version="20.1.7-ctp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CustomAggregates\" />
